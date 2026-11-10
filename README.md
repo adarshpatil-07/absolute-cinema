@@ -1,8 +1,8 @@
-# 🎬 Reel Roulette
+# 🎬 Absolute Cinema
 
 **Find your next movie without endless scrolling.**
 
-Reel Roulette is a lightweight, mood-based movie recommendation website built with HTML, CSS, and vanilla JavaScript. Choose a mood, discover a random movie, and save films to your personal watchlist.
+Absolute Cinema is a lightweight, mood-based movie recommendation website built with HTML, CSS, and vanilla JavaScript. Choose a mood, discover a random movie, and save films to your personal watchlist.
 
 ## ✨ Features
 
@@ -32,13 +32,13 @@ A modern web browser and a code editor such as Visual Studio Code.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/reel-roulette.git
+   git clone https://github.com/adarshpatil-07/absolute-cinema.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd reel-roulette
+   cd absolute-cinema
    ```
 
 3. Open `index.html` in your browser, or use the **Live Server** extension in VS Code.

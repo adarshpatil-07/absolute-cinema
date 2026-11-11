@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from config import ALLOWED_ORIGINS
 from curated import RECOMMENDED, TOP_TEN, TRENDING
-from db import create_db_and_tables
+from db import IS_SQLITE, create_db_and_tables
 from movie_data import cache, fetch_movie_details, format_movie, omdb_request
 from routers.auth import router as auth_router
 from routers.lists import router as lists_router
@@ -21,7 +21,8 @@ SEARCH_CACHE_TTL = 60 * 60
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    create_db_and_tables()
+    if IS_SQLITE:
+        create_db_and_tables()
     yield
 
 
@@ -52,6 +53,35 @@ app.add_middleware(
 )
 
 
+@app.middleware("http")
+async def set_cache_control(request: Request, call_next):
+    response = await call_next(request)
+    path = request.url.path
+
+    if path in {
+        "/api/movies/trending",
+        "/api/movies/top-ten",
+        "/api/movies/recommended",
+    }:
+        response.headers["Cache-Control"] = (
+            "public, max-age=60, s-maxage=3600, stale-while-revalidate=86400"
+        )
+    elif path == "/api/movies/search" or (
+        path.startswith("/api/movies/") and path.count("/") == 3
+    ):
+        response.headers["Cache-Control"] = "public, max-age=60, s-maxage=3600"
+    elif path.startswith(
+        (
+            "/api/auth",
+            "/api/watchlist",
+            "/api/lists",
+            "/api/me",
+        )
+    ) or (path.startswith("/api/movies/") and path.count("/") > 3):
+        response.headers["Cache-Control"] = "no-store"
+    return response
+
+
 async def curated_movies(imdb_ids: list[str]) -> dict:
     async with httpx.AsyncClient(timeout=15.0) as client:
         movies = await asyncio.gather(
@@ -63,6 +93,11 @@ async def curated_movies(imdb_ids: list[str]) -> dict:
 @app.get("/")
 def home():
     return {"message": "Absolute Cinema API is running!"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 
 @app.get("/api/movies/trending")

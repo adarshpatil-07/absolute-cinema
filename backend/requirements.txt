@@ -3,6 +3,9 @@ uvicorn[standard]
 httpx
 python-dotenv
 sqlmodel
+sqlalchemy
+pydantic
 pwdlib[argon2]
 PyJWT
 email-validator
+psycopg[binary]

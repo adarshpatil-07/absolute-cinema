@@ -8,15 +8,6 @@ type WatchlistSectionProps = {
   onRetry: () => void
 }
 
-const posterClasses = [
-  'poster-one',
-  'poster-two',
-  'poster-three',
-  'poster-four',
-  'poster-five',
-  'poster-six',
-]
-
 function WatchlistSection({
   movies,
   onMovieOpen,
@@ -26,10 +17,7 @@ function WatchlistSection({
   return (
     <section className="content-section watchlist-section" id="watchlist">
       <div className="section-heading">
-        <div>
-          <p className="section-kicker">SAVED FOR YOUR NEXT SESSION</p>
-          <h2>Your <span>watchlist</span></h2>
-        </div>
+        <h2>Your watchlist</h2>
       </div>
       {error ? (
         <div className="section-error" role="alert">
@@ -40,11 +28,10 @@ function WatchlistSection({
         <p className="movie-empty-state">Your watchlist is empty. Add a movie to save it here.</p>
       ) : (
         <div className="poster-row">
-          {movies.map((movie, index) => (
+          {movies.map((movie) => (
             <MovieTile
               key={movie.id}
               movie={movie}
-              posterClass={posterClasses[index % posterClasses.length]}
               loading="lazy"
               onOpen={onMovieOpen}
             />

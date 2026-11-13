@@ -46,8 +46,7 @@ function LoginPreview() {
       {user ? (
         <>
           <div>
-            <p className="section-kicker">YOUR SPACE. YOUR STORIES.</p>
-            <h2>Welcome back,<br />{user.username}.</h2>
+            <h2>Welcome back, {user.username}.</h2>
             <p>Your watchlist and reviews are ready whenever you are.</p>
           </div>
           <button className="button button-outline" type="button" onClick={logout}>
@@ -57,8 +56,7 @@ function LoginPreview() {
       ) : (
         <>
           <div className="login-preview-copy">
-            <p className="section-kicker">YOUR SPACE. YOUR STORIES.</p>
-            <h2>{isRegistering ? <>Keep your next favourite<br />close at hand.</> : <>Welcome back to<br />Absolute Cinema.</>}</h2>
+            <h2>{isRegistering ? 'Keep your next favourite close.' : 'Make room for another favourite.'}</h2>
             <p>
               {isRegistering
                 ? 'Create an account to save films, build your watchlist, and share your reviews.'
@@ -89,7 +87,7 @@ function LoginPreview() {
                   setError(null)
                 }}
               >
-                Register
+                Sign up
               </button>
             </div>
             <form className="auth-form" id="login-form" onSubmit={handleSubmit}>
@@ -133,7 +131,7 @@ function LoginPreview() {
               </label>
               {error && <p className="feature-error" role="alert">{error}</p>}
               <button
-                className="button button-red auth-submit"
+                className="button button-primary auth-submit"
                 type="submit"
                 disabled={submitting}
               >

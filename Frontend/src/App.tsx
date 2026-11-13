@@ -62,6 +62,8 @@ function App() {
   }>({ userId: null, message: null })
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
 
+  const suggestMovies = useCallback((query: string) => searchMovies(query), [])
+
   async function loadMovies() {
     setLoading(true)
     setLoadError(null)
@@ -209,9 +211,17 @@ function App() {
 
   return (
     <>
-      <Header onSearch={handleSearch} onClearSearch={clearSearch} />
+      <Header
+        onSearch={handleSearch}
+        onSearchSuggestions={suggestMovies}
+        onClearSearch={clearSearch}
+      />
       <main>
-        <Hero />
+        <Hero
+          movie={movieRows.trending[0] ?? movieRows.topTen[0] ?? null}
+          signedIn={Boolean(user)}
+          onMovieOpen={openMovie}
+        />
         <TrendingSection
           movies={showingSearch ? searchResults : movieRows.trending}
           loading={showingSearch ? searchLoading : loading}

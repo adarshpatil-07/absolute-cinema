@@ -15,22 +15,18 @@ function SectionFeedback({
 }: SectionFeedbackProps) {
   if (loading) {
     return (
-      <div className={className} aria-label="Loading movies">
+      <div className={`${className} loading-row`} role="status" aria-label="Loading movies">
         {[0, 1, 2, 3].map((item) => (
           ranked ? (
             <article className="ranked-movie" key={item} aria-hidden="true">
               <span className="rank-number">{String(item + 1).padStart(2, '0')}</span>
-              <div className="rank-poster" style={{ backgroundColor: '#242424' }}></div>
-              <h3>Loading…</h3>
-              <p> </p>
+              <div className="rank-poster loading-poster"></div>
+              <div className="loading-caption"><span></span><span></span></div>
             </article>
           ) : (
             <article className="movie-tile" key={item} aria-hidden="true">
-              <div className="poster"></div>
-              <div className="movie-caption">
-                <h3>Loading…</h3>
-                <p> </p>
-              </div>
+              <div className="poster loading-poster"></div>
+              <div className="loading-caption"><span></span><span></span></div>
             </article>
           )
         ))}

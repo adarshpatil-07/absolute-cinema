@@ -25,6 +25,10 @@ function dateLabel(value: string): string {
   return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString()
 }
 
+function StarShape({ fill = 'empty' }: { fill?: 'full' | 'half' | 'empty' }) {
+  return <span className={`star-shape ${fill}`} aria-hidden="true" />
+}
+
 function StarRating({
   value,
   onChange,
@@ -37,9 +41,11 @@ function StarRating({
   if (!onChange) {
     return (
       <span className="feature-stars" aria-label={`${value.toFixed(1)} out of 5 stars`}>
-        {'★'.repeat(Math.floor(value))}
-        {value % 1 !== 0 && <span className="feature-star-half">★</span>}
-        {'☆'.repeat(5 - Math.ceil(value))}
+        {Array.from({ length: 5 }, (_, index) => {
+          const star = index + 1
+          const fill = value >= star ? 'full' : value >= star - 0.5 ? 'half' : 'empty'
+          return <StarShape fill={fill} key={star} />
+        })}
       </span>
     )
   }
@@ -58,14 +64,14 @@ function StarRating({
               aria-label={`${halfRating} stars`}
               aria-pressed={value === halfRating}
               onClick={() => onChange(halfRating)}
-            >★</button>
+            ><StarShape /></button>
             <button
               className="star-step full"
               type="button"
               aria-label={`${star} ${star === 1 ? 'star' : 'stars'}`}
               aria-pressed={value === star}
               onClick={() => onChange(star)}
-            >★</button>
+            ><StarShape /></button>
           </span>
         )
       })}
@@ -327,10 +333,10 @@ function MovieDetailModal({
                   : <div className="feature-poster-fallback" aria-label="Poster unavailable"></div>}
               </div>
               <div className="feature-detail-copy">
-                <p className="section-kicker">MOVIE DETAILS</p>
                 <h2 id="movie-detail-title">{shownMovie.title ?? 'Untitled'}</h2>
                 <p className="feature-meta">
-                  {[shownMovie.year, shownMovie.runtime, shownMovie.genres.join(' · ')].filter(Boolean).join(' · ')}
+                  {[shownMovie.year, shownMovie.runtime].filter(Boolean).join(' / ')}
+                  {shownMovie.genres.length > 0 && <span>{shownMovie.genres.join(', ')}</span>}
                 </p>
                 {shownMovie.director && <p><strong>Director</strong> {shownMovie.director}</p>}
                 {shownMovie.actors && <p><strong>Cast</strong> {shownMovie.actors}</p>}
@@ -344,7 +350,7 @@ function MovieDetailModal({
                     {movieReviews?.average_rating === null || movieReviews?.average_rating === undefined
                       ? 'No ratings yet'
                       : `${movieReviews.average_rating.toFixed(1)} average`}
-                    {' · '}{movieReviews?.count ?? 0} reviews
+                    <span>{movieReviews?.count ?? 0} reviews</span>
                   </span>
                 </div>
               </div>
@@ -353,16 +359,18 @@ function MovieDetailModal({
             {user ? (
               <>
                 <div className="feature-account-actions">
-                  <button className="button button-outline" type="button" onClick={() => void toggleWatchlist()}>
+                  <button className="button button-primary" type="button" onClick={() => void toggleWatchlist()}>
                     {watchlisted ? 'Remove from watchlist' : 'Add to watchlist'}
                   </button>
                 </div>
                 <div className="feature-review-form">
-                  <h3>Your rating &amp; review</h3>
+                  <h3>Your rating and review</h3>
                   <StarRating value={myRating} onChange={setMyRating} label="Your rating" />
                   <label className="feature-review-label" htmlFor="movie-review-text">Review (optional)</label>
                   <textarea
                     id="movie-review-text"
+                    name="review"
+                    aria-label="Review (optional)"
                     value={myText}
                     maxLength={2000}
                     onChange={(event) => setMyText(event.target.value)}
@@ -370,7 +378,7 @@ function MovieDetailModal({
                   />
                   <div className="feature-review-actions">
                     <span>{myText.length}/2000</span>
-                    <button className="button button-red" type="button" onClick={() => void handleSaveReview()} disabled={saving}>
+                    <button className="button button-primary" type="button" onClick={() => void handleSaveReview()} disabled={saving}>
                       {saving ? 'Saving…' : 'Save review'}
                     </button>
                     {hasReview && (
@@ -384,7 +392,7 @@ function MovieDetailModal({
             ) : (
               <div className="feature-signin-prompt">
                 <p>Sign in to rate or save this movie.</p>
-                <button className="button button-red" type="button" onClick={goToLogin}>Sign in to rate or save</button>
+                <button className="button button-primary" type="button" onClick={goToLogin}>Sign in to rate or save</button>
               </div>
             )}
 

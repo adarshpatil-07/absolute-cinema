@@ -1,0 +1,30 @@
+/* Hallmark · shape: catalogue · genre: atmospheric · theme: Midnight · redesign: full
+ * hero: Stage · nav: search-led bar · footer: colophon · imagery: API film posters · signature: featured film artwork · job: discover and save films
+ * axes: deep navy/teal/Oswald · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 · weakest: S, one featured film rather than platform-wide inventory makes the signature explicit */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--space-2xl); scrollbar-color: var(--color-rule-2) var(--color-paper); }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--color-accent); color: var(--color-accent-ink); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { color: inherit; font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.08; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+h1 { max-width: 10ch; font-size: var(--text-display); }
+h2 { max-width: 30ch; font-size: var(--text-section); }
+h3 { max-width: 40ch; font-size: var(--text-title); line-height: 1.2; }
+p { margin: 0; text-wrap: pretty; }
+img { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: clip; clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

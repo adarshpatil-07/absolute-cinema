@@ -16,19 +16,14 @@ function TopTenSection({
   onRetry,
   onMovieOpen,
 }: TopTenSectionProps) {
-  const posterClasses = ['rank-one', 'rank-two', 'rank-three', 'rank-four', 'rank-five']
-
   return (
     <section className="top-ten-section content-section" id="top-ten">
       <div className="top-ten-heading">
-        <h2><span className="outline-number">TOP 10</span></h2>
-
-        <div className="top-ten-copy">
-          <p className="section-kicker">THE CROWD HAS SPOKEN</p>
-          <h3>Most watched<br />this week</h3>
+        <div>
+          <h2>Top 10</h2>
+          <p>Films in the current ranking.</p>
         </div>
-
-        <a className="text-link top-ten-link" href="#movies">View ranking <span>↗</span></a>
+        <a className="text-link" href="#movies">Browse films</a>
       </div>
 
       {loading || error ? (
@@ -45,10 +40,9 @@ function TopTenSection({
             <article className="ranked-movie" key={movie.id}>
               <span className="rank-number">{String(index + 1).padStart(2, '0')}</span>
               <a
-                className={`rank-poster ${posterClasses[index % posterClasses.length]}`}
+                className="rank-poster"
                 href={`#movie-${movie.id}`}
                 aria-label={`${movie.title ?? 'Untitled'} poster`}
-                style={movie.poster ? {} : { backgroundImage: 'none', backgroundColor: '#242424' }}
                 onClick={(event) => {
                   event.preventDefault()
                   onMovieOpen(movie, event.currentTarget)
@@ -57,18 +51,17 @@ function TopTenSection({
                 {movie.poster && (
                   <img
                     src={movie.poster}
-                    alt={`Poster of ${movie.title ?? 'Untitled'}`}
+                    alt=""
                     width="500"
                     height="688"
                     loading="lazy"
                   />
                 )}
-                <span>{movie.title ?? 'Untitled'}</span>
               </a>
               <h3>{movie.title ?? 'Untitled'}</h3>
               <p>
-                {movie.year ?? 'Year unknown'}
-                {movie.rating !== null && ` · ★ ${movie.rating.toFixed(1)}`}
+                <span>{movie.year ?? 'Year unknown'}</span>
+                {movie.rating !== null && <span className="rating-inline">IMDb {movie.rating.toFixed(1)}</span>}
               </p>
             </article>
           ))}

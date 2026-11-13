@@ -21,23 +21,11 @@ function TrendingSection({
   onRetry,
   onMovieOpen,
 }: TrendingSectionProps) {
-  const posterClasses = [
-    'poster-one',
-    'poster-two',
-    'poster-three',
-    'poster-four',
-    'poster-five',
-    'poster-six',
-  ]
-
   return (
     <section className="content-section continue-section" id="trending">
       <div className="section-heading">
-        <div>
-          <p className="section-kicker">PICK UP WHERE YOU LEFT OFF</p>
-          <h2>{searchTitle ?? <>Trending <span>now</span></>}</h2>
-        </div>
-        <a className="text-link" href="#movies">Explore all <span>↗</span></a>
+        <h2>{searchTitle ?? 'Up next'}</h2>
+        {!searchTitle && <a className="text-link" href="#top-ten">Top 10</a>}
       </div>
 
       {loading || error ? (
@@ -48,14 +36,13 @@ function TrendingSection({
           onRetry={onRetry}
         />
       ) : searchEmpty ? (
-        <p className="movie-empty-state">No movies found.</p>
+        <p className="movie-empty-state">No films found for this search.</p>
       ) : (
         <div className="poster-row">
-          {movies.map((movie, index) => (
+          {movies.map((movie) => (
             <MovieTile
               key={movie.id}
               movie={movie}
-              posterClass={posterClasses[index % posterClasses.length]}
               onOpen={onMovieOpen}
             />
           ))}

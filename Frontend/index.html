@@ -6,9 +6,39 @@
     <meta name="theme-color" content="#090909" />
     <meta
       name="description"
-      content="Discover your next movie with Absolute Cinema."
+      content="Discover movies with ratings and reviews, explore recommendations, and build your watchlist with Absolute Cinema."
     />
-    <title>Absolute Cinema — Discover Your Next Movie</title>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://absolute-cinema-coral.vercel.app" />
+    <link rel="icon" href="/og-image.png" type="image/png" />
+    <title>Absolute Cinema | Movie Discovery</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Absolute Cinema" />
+    <meta property="og:title" content="Absolute Cinema | Movie Discovery" />
+    <meta
+      property="og:description"
+      content="Discover movies with ratings and reviews, explore recommendations, and build your watchlist with Absolute Cinema."
+    />
+    <meta property="og:url" content="https://absolute-cinema-coral.vercel.app" />
+    <meta property="og:image" content="https://absolute-cinema-coral.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Absolute Cinema | Movie Discovery" />
+    <meta
+      name="twitter:description"
+      content="Discover movies with ratings and reviews, explore recommendations, and build your watchlist with Absolute Cinema."
+    />
+    <meta name="twitter:image" content="https://absolute-cinema-coral.vercel.app/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Absolute Cinema",
+        "url": "https://absolute-cinema-coral.vercel.app",
+        "description": "Discover movies with ratings and reviews, explore recommendations, and build your watchlist with Absolute Cinema."
+      }
+    </script>
     <link rel="preconnect" href="%VITE_API_URL%" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,7 +48,9 @@
     />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <noscript>Absolute Cinema needs JavaScript enabled to discover movies, ratings, reviews, and your watchlist.</noscript>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -316,7 +316,14 @@ function MovieDetailModal({
             <div className="feature-detail">
               <div className="feature-detail-poster">
                 {shownMovie.poster
-                  ? <img src={shownMovie.poster} alt={`${shownMovie.title ?? 'Movie'} poster`} />
+                  ? (
+                    <img
+                      src={shownMovie.poster}
+                      alt={`Poster of ${shownMovie.title ?? 'Untitled'}`}
+                      width="500"
+                      height="713"
+                    />
+                  )
                   : <div className="feature-poster-fallback" aria-label="Poster unavailable"></div>}
               </div>
               <div className="feature-detail-copy">

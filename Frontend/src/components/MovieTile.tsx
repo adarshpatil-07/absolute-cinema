@@ -5,12 +5,13 @@ import type { Movie } from '../types'
 type MovieTileProps = {
   movie: Movie
   posterClass: string
+  loading?: 'eager' | 'lazy'
   onOpen: (movie: Movie, trigger: HTMLElement) => void
 }
 
-function MovieTile({ movie, posterClass, onOpen }: MovieTileProps) {
+function MovieTile({ movie, posterClass, loading = 'eager', onOpen }: MovieTileProps) {
   const posterStyle: CSSProperties = movie.poster
-    ? { backgroundImage: `url("${movie.poster}")` }
+    ? {}
     : { backgroundImage: 'none', backgroundColor: '#242424' }
   const rating = movie.rating === null ? null : `★ ${movie.rating.toFixed(1)}`
 
@@ -26,6 +27,16 @@ function MovieTile({ movie, posterClass, onOpen }: MovieTileProps) {
           onOpen(movie, event.currentTarget)
         }}
       >
+        {movie.poster && (
+          <img
+            className="poster-image"
+            src={movie.poster}
+            alt={`Poster of ${movie.title ?? 'Untitled'}`}
+            width="500"
+            height="713"
+            loading={loading}
+          />
+        )}
         <span className="poster-overlay"></span>
         {rating !== null && <span className="poster-rating">{rating}</span>}
       </a>

@@ -48,14 +48,21 @@ function TopTenSection({
                 className={`rank-poster ${posterClasses[index % posterClasses.length]}`}
                 href={`#movie-${movie.id}`}
                 aria-label={`${movie.title ?? 'Untitled'} poster`}
-                style={movie.poster
-                  ? { backgroundImage: `url("${movie.poster}")` }
-                  : { backgroundImage: 'none', backgroundColor: '#242424' }}
+                style={movie.poster ? {} : { backgroundImage: 'none', backgroundColor: '#242424' }}
                 onClick={(event) => {
                   event.preventDefault()
                   onMovieOpen(movie, event.currentTarget)
                 }}
               >
+                {movie.poster && (
+                  <img
+                    src={movie.poster}
+                    alt={`Poster of ${movie.title ?? 'Untitled'}`}
+                    width="500"
+                    height="688"
+                    loading="lazy"
+                  />
+                )}
                 <span>{movie.title ?? 'Untitled'}</span>
               </a>
               <h3>{movie.title ?? 'Untitled'}</h3>

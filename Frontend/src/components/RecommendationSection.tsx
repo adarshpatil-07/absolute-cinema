@@ -80,6 +80,7 @@ function RecommendationSection({
               key={movie.id}
               movie={movie}
               posterClass={posterClasses[index % posterClasses.length]}
+              loading="lazy"
               onOpen={onMovieOpen}
             />
           ))}

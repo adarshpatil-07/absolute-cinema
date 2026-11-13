@@ -4,7 +4,7 @@
 
 Absolute Cinema is a full-stack movie discovery and tracking platform inspired by Letterboxd. Browse curated movie rows, search any film, rate and review what you've watched, and keep a personal watchlist.
 
-🔗 **Live : https://absolute-cinema-3qz.pages.dev/
+🔗 **Live : https://absolute-cinema-coral.vercel.app
 
 <img width="1356" height="651" alt="image" src="https://github.com/user-attachments/assets/dfb031bc-f8fd-4c92-a5b4-3b31db59c995" />
 
